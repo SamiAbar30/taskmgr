@@ -1,0 +1,32 @@
+help
+print
+add name="Task A"
+add name="T" type="Work" desc="d" due="31-10-2025" rep="DAILY" prio="HIGH"
+add type="x"
+add name="A" extra="x"
+add name="A" due="2025-10-31"
+add name="A" rep="YEARLY"
+add name="A" prio="URGENT"
+print sort_by=due direction=asc
+print sort_by=name direction=up
+print sort_by=unknown
+list property="type" val="school"
+list property="type"
+list property="type" val="School extra=1"
+mod id=0 property="desc" new_val="Updated"
+mod id=0 property="desc"
+mod id=100 property="desc" new_val="x"
+mod id=0 property="unknown" new_val="x"
+mod id=0 property="due" new_val="2025/10/31"
+done id=0
+done
+done id=999
+add name="Seq1"
+add name="Seq2"
+add name="Seq3"
+add name="A"
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+foobar arg=1
+add name=12345
+print
+list property="prio" val="MEDIUM" sort_by=name direction=desc

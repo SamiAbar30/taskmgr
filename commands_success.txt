@@ -1,0 +1,15 @@
+## Commands expected to succeed (happy-path scenarios)
+help
+print
+add name="Task A"
+add name="T" type="Work" desc="d" due="31-10-2025" rep="DAILY" prio="HIGH"
+print sort_by=due direction=asc
+list property="type" val="school"
+mod id=0 property="desc" new_val="Updated"
+done id=0
+add name="Seq1"
+add name="Seq2"
+add name="Seq3"
+add name="A"
+print
+list property="prio" val="MEDIUM" sort_by=name direction=desc

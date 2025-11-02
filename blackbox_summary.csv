@@ -1,0 +1,31 @@
+ID,Command,Expected,Actual,Result
+BB-01,help,"Prints commands and ""Command success: help""",Command success: help\nhelp\nprint [sort_by=<prop>] [direction=<asc|desc>]\nadd name=<name> [type=<type>] [desc=<desc>] [due=<DD-MM-YYYY>] [rep=<NONE|DAILY|WEEKLY|MONTHLY>] [prio=<LOW|MEDIUM|HIGH>]\nlist property=<prop> val=<value> [sort_by=<prop>] [direction=<asc|desc>]\nmod id=<id> property=<prop> new_val=<value>\ndone id=<id>\ndelete id=<id> | delete property=<prop> val=<value>,PASS
+BB-02,print,Prints header and no tasks lines,Command success: print\nName | Type | Desc | Due | Rep | Prio | Done | Ctime | Id,FAIL
+BB-03,"add name=""Task A""","Task created with name ""Task A""","Command success: add name=""Task A""",PASS
+BB-04,"add name=""T"" type=""Work"" desc=""d"" due=""31-10-2025"" rep=""DAILY"" prio=""HIGH""",Task created with fields set,"Command success: add name=""T"" type=""Work"" desc=""d"" due=""31-10-2025"" rep=""DAILY"" prio=""HIGH""",PASS
+BB-05,"add type=""x""","Error MissingArguments: add type=""x""","Error MissingArguments: add type=""x""",PASS
+BB-06,"add name=""A"" extra=""x""","Error TooManyArguments: add name=""A"" extra=""x""","Error TooManyArguments: add name=""A"" extra=""x""",PASS
+BB-07,"add name=""A"" due=""2025-10-31""","Error InvalidDateFormat: add name=""A"" due=""2025-10-31""","Error InvalidDateFormat: add name=""A"" due=""2025-10-31""",PASS
+BB-08,"add name=""A"" rep=""YEARLY""","Error InvalidRepeat: add name=""A"" rep=""YEARLY""","Error InvalidRepeat: add name=""A"" rep=""YEARLY""",PASS
+BB-09,"add name=""A"" prio=""URGENT""","Error InvalidPriority: add name=""A"" prio=""URGENT""","Error InvalidPriority: add name=""A"" prio=""URGENT""",PASS
+BB-10,print sort_by=due direction=asc,Tasks printed ordered by due ascending,Command success: print sort_by=due direction=asc\nName | Type | Desc | Due | Rep | Prio | Done | Ctime | Id\nT | Work | d | 31-10-2025 | DAILY | HIGH | False | 2-11-2025 18:52:55 | 1\n\nTask A | NONE |  | NONE | NONE | MEDIUM | False | 2-11-2025 18:52:55 | 0,PASS
+BB-11,print sort_by=name direction=up,Error InvalidArgument: print sort_by=name direction=up,Error InvalidArgument: print sort_by=name direction=up,PASS
+BB-12,print sort_by=unknown,Error InvalidArgument: print sort_by=unknown,Error InvalidArgument: print sort_by=unknown,PASS
+BB-13,"list property=""type"" val=""school""",Only tasks with type matching case-insensitive printed,"Command success: list property=""type"" val=""school""\nName | Type | Desc | Due | Rep | Prio | Done | Ctime | Id",PASS
+BB-14,"list property=""type""","Error MissingArguments: list property=""type""","Error MissingArguments: list property=""type""",PASS
+BB-15,"list property=""type"" val=""School extra=1""","Error InvalidArgument: list property=""type"" val=""School extra=1""","Command success: list property=""type"" val=""School extra=1""\nName | Type | Desc | Due | Rep | Prio | Done | Ctime | Id",FAIL
+BB-16,"mod id=0 property=""desc"" new_val=""Updated""",Task desc changed,"Command success: mod id=0 property=""desc"" new_val=""Updated""",FAIL
+BB-17,"mod id=0 property=""desc""","Error MissingArguments: mod id=0 property=""desc""","Error MissingArguments: mod id=0 property=""desc""",PASS
+BB-18,"mod id=100 property=""desc"" new_val=""x""","Error TaskNotFound: mod id=100 property=""desc"" new_val=\""x\""","Error TaskNotFound: mod id=100 property=""desc"" new_val=""x""",PASS
+BB-19,"mod id=0 property=""unknown"" new_val=""x""","Error InvalidArgument: mod id=0 property=\""unknown\"" new_val=\""x\""","Error InvalidArgument: mod id=0 property=""unknown"" new_val=""x""",PASS
+BB-20,"mod id=0 property=""due"" new_val=""2025/10/31""",Error InvalidDateFormat: ...,"Error InvalidDateFormat: mod id=0 property=""due"" new_val=""2025/10/31""",PASS
+BB-21,done id=0,Task done becomes True,Command success: done id=0,FAIL
+BB-22,done,Error MissingArguments: done,Error MissingArguments: done,PASS
+BB-23,done id=999,Error TaskNotFound: done id=999,Error TaskNotFound: done id=999,PASS
+BB-24,add three tasks sequentially,IDs 0,"EXCEPTION: Traceback (most recent call last):\n  File ""D:\files (1)\evaluate_blackbox.py"", line 45, in run\n    taskmgr.process_line(cmd)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^\n  File ""D:\files (1)\taskmgr.py"", line 404, in process_line\n    args = tokenize_args_segment(rest) if rest else {}\n           ~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File ""D:\files (1)\taskmgr.py"", line 109, in tokenize_args_segment\n    raise InvalidArgument()\ntaskmgr.InvalidArgument",FAIL
+BB-25,"add name=""A""",Task ctime present like 'D-M-YYYY HH:MM:SS',"Command success: add name=""A""",FAIL
+BB-26,<very long command>,Error TooLongLine: <command>,"EXCEPTION: Traceback (most recent call last):\n  File ""D:\files (1)\evaluate_blackbox.py"", line 45, in run\n    taskmgr.process_line(cmd)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^\n  File ""D:\files (1)\taskmgr.py"", line 399, in process_line\n    raise InvalidArgument()\ntaskmgr.InvalidArgument",FAIL
+BB-27,foobar arg=1,Error InvalidArgument: foobar arg=1,Error InvalidArgument: foobar arg=1,PASS
+BB-28,add name=12345,Error InvalidArgumentType: add name=12345,Error InvalidArgumentType: add name=12345,PASS
+BB-29,print,C exist,Command success: print\nName | Type | Desc | Due | Rep | Prio | Done | Ctime | Id\nA | NONE |  | NONE | NONE | MEDIUM | False | 2-11-2025 18:52:55 | 2\n\nT | Work | d | 31-10-2025 | DAILY | HIGH | False | 2-11-2025 18:52:55 | 1\n\nTask A | NONE | Updated | NONE | NONE | MEDIUM | True | 2-11-2025 18:52:55 | 0,FAIL
+BB-30,"list property=""prio"" val=""MEDIUM"" sort_by=name direction=desc",Filtered list sorted by name descending,"Command success: list property=""prio"" val=""MEDIUM"" sort_by=name direction=desc\nName | Type | Desc | Due | Rep | Prio | Done | Ctime | Id\nTask A | NONE | Updated | NONE | NONE | MEDIUM | True | 2-11-2025 18:52:55 | 0\n\nA | NONE |  | NONE | NONE | MEDIUM | False | 2-11-2025 18:52:55 | 2",FAIL
