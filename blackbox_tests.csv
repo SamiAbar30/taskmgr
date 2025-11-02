@@ -1,0 +1,31 @@
+ID,Title,Command,Preconditions,Steps,Expected,Priority,Notes
+BB-01,Help shows commands,help,None,Run: help,Prints commands and "Command success: help",High,
+BB-02,Print empty list,print,None,Run: print,Prints header and no tasks lines,Medium,Spec not explicit about header with zero tasks
+BB-03,Add minimal task,add name="Task A",No tasks exist,Run: add name="Task A",Task created with name "Task A", done=False, prio=MEDIUM, due=NONE, rep=NONE, id=0, ctime assigned,High,Default prio chosen MEDIUM (spec conflict)
+BB-04,Add full task,add name="T" type="Work" desc="d" due="31-10-2025" rep="DAILY" prio="HIGH",No tasks,Run full add,Task created with fields set,High,Tests date parsing and enumerations
+BB-05,Add missing name error,add type="x",No tasks,Run: add type="x",Error MissingArguments: add type="x",High,
+BB-06,Add too many args,add name="A" extra="x",No tasks,Run: add name="A" extra="x",Error TooManyArguments: add name="A" extra="x",High,
+BB-07,Invalid date format,add name="A" due="2025-10-31",No tasks,Run: add name="A" due="2025-10-31",Error InvalidDateFormat: add name="A" due="2025-10-31",High,
+BB-08,Invalid repeat value,add name="A" rep="YEARLY",No tasks,Run: add name="A" rep="YEARLY",Error InvalidRepeat: add name="A" rep="YEARLY",High,
+BB-09,Invalid priority value,add name="A" prio="URGENT",No tasks,Run: add name="A" prio="URGENT",Error InvalidPriority: add name="A" prio="URGENT",High,
+BB-10,Print sorts by due asc,print sort_by=due direction=asc,Tasks with due dates exist,Run: print sort_by=due direction=asc,Tasks printed ordered by due ascending,High,
+BB-11,Print invalid direction,print sort_by=name direction=up,None,Run: print sort_by=name direction=up,Error InvalidArgument: print sort_by=name direction=up,Medium,
+BB-12,Print invalid property,print sort_by=unknown,None,Run: print sort_by=unknown,Error InvalidArgument: print sort_by=unknown,Medium,
+BB-13,List by type case-insensitive,list property="type" val="school",Tasks exist,Run: list property="type" val="school",Only tasks with type matching case-insensitive printed,High,
+BB-14,List missing args,list property="type",None,Run: list property="type",Error MissingArguments: list property="type",High,
+BB-15,List too many args,list property="type" val="School extra=1",None,Run: list property="type" val="School extra=1",Error InvalidArgument: list property="type" val="School extra=1",Medium,
+BB-16,Modify field success,mod id=0 property="desc" new_val="Updated",Task id 0 exists,Run: mod id=0 property="desc" new_val="Updated",Task desc changed, Command success,High,
+BB-17,Modify missing args,mod id=0 property="desc",None,Run: mod id=0 property="desc",Error MissingArguments: mod id=0 property="desc",High,
+BB-18,Modify invalid id,mod id=100 property="desc" new_val="x",No id 100,Run: mod id=100 property="desc" new_val="x",Error TaskNotFound: mod id=100 property="desc" new_val=\"x\",High,
+BB-19,Modify invalid property,mod id=0 property="unknown" new_val="x",Task 0 exists,Run: mod id=0 property="unknown" new_val="x",Error InvalidArgument: mod id=0 property=\"unknown\" new_val=\"x\",High,
+BB-20,Modify due invalid format,mod id=0 property="due" new_val="2025/10/31",Task 0 exists,Run: mod id=0 property=\"due\" new_val=\"2025/10/31\",Error InvalidDateFormat: ...,High,
+BB-21,Done success,done id=0,Task exists,Run: done id=0,Task done becomes True, Command success,High,
+BB-22,Done missing arg,done,None,Run: done,Error MissingArguments: done,High,
+BB-23,Done invalid id,done id=999,No task 999,Run: done id=999,Error TaskNotFound: done id=999,High,
+BB-24,Id increments,add three tasks sequentially,No tasks initially,Run three adds,IDs 0,1,2 created in order,High,
+BB-25,Ctime present format,add name="A",No tasks,Run add,Task ctime present like 'D-M-YYYY HH:MM:SS',High,
+BB-26,Line length limit (exceed),<very long command>,N/A,Run command >1024 chars,Error TooLongLine: <command>,Low,
+BB-27,Unknown command error,foobar arg=1,None,Run: foobar arg=1,Error InvalidArgument: foobar arg=1,Medium,
+BB-28,Non-string name without quotes,add name=12345,None,Run: add name=12345,Error InvalidArgumentType: add name=12345,High,
+BB-29,Print default sort name asc,print,Tasks names A,B,C exist,Run: print,Tasks printed sorted by name ascending,High,
+BB-30,List sort desc,list property="prio" val="MEDIUM" sort_by=name direction=desc,Tasks exist,Run: list property="prio" val="MEDIUM" sort_by=name direction=desc,Filtered list sorted by name descending,Medium
