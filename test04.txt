@@ -1,0 +1,74 @@
+# --- Happy Path: Task Creation ---
+help
+add name="White Box" type="School" desc="V&V Assigment" due="21-11-2025" rep="WEEKLY" prio="HIGH"
+add name="No Due"
+
+# --- Queries (Print and List) - Sorting Coverage ---
+print sort_by="prio"
+print sort_by="due"
+print sort_by="ctime"
+print sort_by="rep"
+print sort_by="id"
+print sort_by="type"
+print sort_by="desc"
+print sort_by="done" direction="desc"
+list property="type" val="School"
+
+# --- Modifications (Valid Branch Coverage) ---
+mod id=0 property="rep" new_val="DAILY"
+mod id=0 property="due" new_val="NONE"
+mod id=0 property="prio" new_val="LOW"
+mod id=0 property="name" new_val="ValidName"
+
+# --- Modifications (Boolean Parsing Coverage) ---
+mod id=0 property="done" new_val="True"
+mod id=0 property="done" new_val="true"
+mod id=0 property="done" new_val="False"
+mod id=0 property="done" new_val="false"
+
+# --- Finish Task ---
+done id=1
+
+# --- Error Handling: ADD Command ---
+add type="School"
+add name="Valid" extra="NotAllowed"
+add name="TrailingTest" meaningLESS
+add name="12345"
+add name="BadRep" rep="YEARLY"
+add name="BadPrio" prio="URGENT"
+add name="BadDate" due="2025/31/12"
+add name="ImpossibleDate" due="30-02-2025"
+
+# --- Error Handling: PRINT/LIST Commands ---
+print color="red"
+print sort_by="size"
+print direction="upwards"
+list property="type"
+list property="type" val="School" extra="yes"
+list property="color" val="red"
+
+# --- Error Handling: MOD Command ---
+mod id=0
+mod id=0 property="name" new_val="X" extra="Y"
+mod id="zero" property="name" new_val="X"
+mod id=0 property="color" new_val="red"
+mod id=999 property="name" new_val="X"
+mod id=0 property="due" new_val="mañana"
+mod id=0 property="rep" new_val="NEVER"
+mod id=0 property="prio" new_val="CRITICAL"
+mod id=0 property="done" new_val="Maybe"
+mod id=0 property="name" new_val="555"
+mod id=0 property="id" new_val="10"
+mod id=0 property="ctime" new_val="10-10-2020"
+
+# --- Error Handling: DONE Command ---
+done
+done id=0 extra="yes"
+done id="one"
+done id=999
+
+# --- Edge Cases and Invalid Commands ---
+?
+123
+# Character limit test (1024)
+1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_1024_

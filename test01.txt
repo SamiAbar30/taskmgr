@@ -1,0 +1,8 @@
+help
+add name="White Box" type="School" desc="V&V Assigment" due="21-11-2025" rep="WEEKLY" prio="HIGH"
+add name="Buy lunch"
+print sort_by="prio"
+list property="type" val="School"
+mod id=0 property="rep" new_val="DAILY"
+done id=1
+print sort_by="done" direction="desc"
